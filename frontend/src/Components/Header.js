@@ -1,28 +1,77 @@
 import foody from "../assest/images/thumb-238653.jpg"
 import { cart } from "../assest/icons"
 import { Link } from "react-router-dom"
+import { styled } from "styled-components"
 
 export const Header = () =>{
     return(
-        <nav id="Header" className="bg-black text-white">
-            <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
-                <div className="logo-wrapper pl-4 flex items-center">
-                   <Link to="/" className="toggleColor text-white no-underline hover:no-underline font-bold text-2xl lg:text">
-                   <img src={foody} alt="logo" className="w-30 h-20 object-cover"/>
+        <HeaderStyled id="Header" >
+            <div className="headerWrapper">
+                <div className="imageWrapper">
+                   <Link to="/" className="imageLink">
+                   <img src={foody} alt="logo" className="image"/>
                    </Link>
                 </div>
-                <div className="nav-menu-wrapper flex items-center justify-between space-x-10">
-                    <Link to="/" className="text-xl">Home</Link>
-                    <Link to="#about" className="text-xl">About</Link>
+                <div className="mainWrapper">
+                    <Link to="/" className="home">Home</Link>
+                    <Link to="#about" className="About">About</Link>
                 </div>
-                <div className="flex items-center justify-center space-x-4">
-                    <Link to="/cart">
+                <div className="loginWrapper">
+                    <Link to="/cart" className="cart">
                         {cart}
                     </Link>
-                    <Link to="/login">log In</Link>
-                    <Link to ="/register">Sign Up</Link>
+                    <Link to="/login" className="logIn">log In</Link>
+                    <Link to ="/register" className="signUp">Sign Up</Link>
                 </div>
             </div>
-        </nav>
+        </HeaderStyled>
     )
 }
+
+const HeaderStyled = styled.div`
+.headerWrapper{
+    display:flex;
+    justify-content:space-around;
+    .imageWrapper{
+        img{
+            width:100px;
+            heigth:30px;
+            margin:20px 0;
+            border-radius:25px;
+
+        }
+    }
+    .mainWrapper{
+        margin:20px 0;
+        .home{
+            font-size:20px;
+            color:white;
+            underline:none;
+            
+        }
+        .About{
+            font-size:20px;
+            color:white;
+            margin:0 30px;
+        }
+    }
+    .loginWrapper{
+        margin:20px 0;
+        .logIn{
+            font-size:20px;
+            color:white;
+            margin:0 30px;
+
+        }
+        .cart{
+            font-size:20px;
+            color:white;
+        }
+        .signUp{
+            font-size:20px;
+            color:white;
+        }
+    }
+
+}
+`;

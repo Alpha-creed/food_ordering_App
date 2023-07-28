@@ -8,7 +8,7 @@ const productRouter = require('./routes/productRoutes')
 
 
 require('dotenv').config()
-const PORT = process.env.PORT||5000
+const PORT = process.env.PORT||5000 
 
 var corsOptions ={
     origin:"http://localhost:3000"  
@@ -26,7 +26,7 @@ app.get("/",(req,res)=>{
     res.json({message:"Welcome to food Ordering"});
 })
 
-app.use('/api/',productRouter);
+app.use('/api/',productRouter); 
 
 
 const server = ()=>{
@@ -37,4 +37,5 @@ const server = ()=>{
         app.on('error',console.error.bind(console,'MongoDB connection error:'))
 
     }
-server()
+server()  
+  

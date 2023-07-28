@@ -1,41 +1,33 @@
-import clsx from "clsx";
+import React from 'react'
+import { styled } from 'styled-components';
 
-function getClassName({className}){
-    return clsx(
-        'text-white text-lg font-bold rounded-xl transition duration-300 cursor-pointer focus:outine-none focus:ring-2 focus:ring-opacity-50',
-        className
-    )
+const Button = ({name,onClick,bg,bpad,icon,width,color,bMarg,brad}) => {
+  return (
+    <ButtonStyled style={{
+        background:bg,
+        padding:bpad,
+        width:width,
+        color:color,        
+        borderRadius:brad,
+        margin:bMarg,
+    }} onClick={onClick}>
+       {icon}{name}
+    </ButtonStyled>
+  )
 }
 
-const sizes ={
-    small:'px-4 py-3',
-    medium:'px-6 py-4',
-    large:'w-full px-4 py-3',
-};
+const ButtonStyled = styled.button`
+    border:none;
+    outline:none;
+    font-size:20px;
+    width:100px;
+    heigth:auto;
+    justify-content:center;
+    background:#F9A807;
+    color:white;
+    border-radius:25px;
+    margin:0 20px;
+    padding:20px 30px;
+`;
 
-const variants ={
-    primary:'bg-marigold focus:ring-marigold',
-    secondary:'bg-tomato focus:ring-tomato',
-    dark:'bg-black focus:ring-white',
-};
-
-
-const Button = ({
-    children,
-    className,
-    size="small",
-    variant='primary',
-    ...rest})=>{    
-    return(
-        <button className={clsx(
-            sizes[size],
-            variants[variant],
-            getClassName[{className}]
-        )}
-        {...rest}>
-            {children}
-        </button>
-    )
-}
-
-export default Button;
+export default Button

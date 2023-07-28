@@ -3,14 +3,12 @@ const { MongoClient } = require('mongodb');
 const _ = require('lodash');
 require('dotenv').config();
 
-async function main() {
-  const url = process.env.MONGO_URL;
-  const client = new MongoClient(url);
-  
-     if (!url) {
-      throw new Error('MongoDB connection string is missing');
-    }
 
+async function main() {
+  const url =process.env.MONGO_URL;
+  const client = new MongoClient(url);
+
+ 
   try {
     await client.connect();
 
@@ -24,13 +22,15 @@ async function main() {
     });
 
     await categorySchema.insertMany(categories);
-
+  
     let imageUrls = [
-      'https://cdn.pixabay.com/photo/2022/03/12/07/29/dragon-7063556_640.png',
-      'https://artfiles.alphacoders.com/160/thumb-160452.jpeg',
-      'https://artfiles.alphacoders.com/160/thumb-160461.png',
+      "https://res.cloudinary.com/dqxhisedx/image/upload/v1688164957/cld-sample-4.jpg",
+      "https://res.cloudinary.com/dqxhisedx/image/upload/v1688164954/samples/breakfast.jpg",
+      "https://res.cloudinary.com/dqxhisedx/image/upload/v1688164941/samples/animals/kitten-playing.gif",
+      "https://res.cloudinary.com/dqxhisedx/image/upload/v1688164931/samples/food/pot-mussels.jpg",
+      "https://res.cloudinary.com/dqxhisedx/image/upload/v1688164929/samples/food/dessert.jpg",
     ]
-
+ 
     let products = [];
     for (let i = 0; i < 10; i += 1) {
       let newProduct = {

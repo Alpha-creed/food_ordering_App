@@ -1,29 +1,63 @@
+import { styled } from "styled-components"
 import banner from "../assest/images/thumb-253181.jpg"
 import Button from "./elements/Button"
+import { plus } from "../assest/icons"
 
  const Banner = () =>{
     return(
-        <div className="banner w-full md:w-2/3 px-7 mx-auto relative flex items-center-justify-between">
-            <div className="banner-description w-full md:w-1/2 p-3">
-                <h2 className="mb-6 text-4xl font-bold text-white">
+        <BannerStyled >
+            <div className="textWrapper">
+                <h2 className="motto">
                     Food Ordering Made Easy
                 </h2>
-                <p className="font-semibold text-lg text-red-600 py-2">
+                <p className="text_after_motto">
                     Get Started Today!
                 </p>
             
             <div className="btn-container">
-                <Button>Order Now</Button>
-                <a href="/menu" className="text-yellow-400 hover:text-yellow-500 font-bold text-decoration-line px-3">
+                <Button name={"Order now"}   bpad={"5px 25px"} width={"150px"}/>
+                <a href="/menu" className="menu">
                     See Menu
                 </a>
             </div>
             </div>
-            <div className="banner-image w-ful md:w-1/2 p-3 flex justify-end">
-                <img src={banner} alt="banner" className="max-h-95"/>
+            <div className="bannerWrapper">
+                <img src={banner} alt="banner"/>
             </div>
-        </div>
+        </BannerStyled>
     )
 }
 
+const BannerStyled = styled.div`
+display:flex;
+justify-content:space-evenly;
+margin:50px 0;
+.textWrapper{
+    h2{
+        font-size:40px;
+        color:white;
+    }
+    .menu{
+        font-size:20px;
+        color:yellow;
+    }
+    p{
+        font-size:30px;
+        color:red;
+        margin:10px 0px;
+    }
+    .btn-container{
+        .menu{
+        
+        }
+    }
+}
+.bannerWrapper{
+    img{
+        height:200px;
+        object-fit:cover;
+    }
+}
+
+`;
 export default Banner;

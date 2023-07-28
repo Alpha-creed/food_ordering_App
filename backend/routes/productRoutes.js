@@ -11,7 +11,7 @@ router.get('/products',async(req,res)=>{
     }catch(err){
         res.status(400).send({error:err})
     }
-})
+}) 
 
 router.get('/products-by-categories', async(req,res)=>{
     try {
