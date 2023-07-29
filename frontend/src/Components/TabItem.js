@@ -6,7 +6,7 @@ export const TabItem = ({title,index,active,setActive})=> {
         <TabItemStyled>
             {/* <a href={`{#{title}}`}> */}
                 <button onClick={()=>setActive(title)} className="btn">
-                    <span className={`title ${className}`}>
+                    <span className={`title  ${(active !==true) ?'active':''}`}>
                         {title.toUpperCase()}
                     </span>
                 </button>
@@ -23,14 +23,19 @@ padding:10px 2px;
     border:none;
     outline:none;
     .title{
-        box-shadow: -1px -4px 15px 22px rgba(226,181,27,0.46) inset;
-        -webkit-box-shadow: -1px -4px 15px 22px rgba(226,181,27,0.46) inset;
-        -moz-box-shadow: -1px -4px 15px 22px rgba(226,181,27,0.46) inset;
         &:hover{
-            color:#8B7547;
+            color:#37332B;
             border:none;
             box-shadow:none;
         }
     }
+    .active{
+        background:#CD9018;
+        color:white;
+        border:1px solid transparent;
+        padding:20px;
+        border-radius:20px;
+    }
+  
 }
 `;

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 
-const useTabsSwitch = () => {
+const useTabsSwitch = (tabs,defaultTab) => {
   const [currentTab,setCurrentTab] = useState(defaultTab);
 
   useEffect(()=>{
