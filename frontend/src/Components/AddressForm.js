@@ -5,14 +5,16 @@ import Button from './elements/Button'
 import { arrowRight } from '../assest/icons'
 import { useDispatch } from 'react-redux'
 import { setAddress } from '../stores/userInfo/addressSlice'
+import { useNavigate } from 'react-router-dom'
 
-export const AddressForm = () => {
+export const AddressForm = ({onTabSwitch}) => {
     const {register,handleSubmit}= useForm()
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const onSubmit=(data)=>{
-        dispatch(setAddress(data))
-        console.log(data);
+        dispatch(setAddress(data));
+        onTabSwitch("Payment");
     }
 
     return (
@@ -63,7 +65,7 @@ export const AddressForm = () => {
         </div>
       </div>
       <div className='btn'>
-        <Button  name={arrowRight} bg={"black"} type="submit" width={"150px"}/>
+        <Button  name={arrowRight} bg={"black"} type="submit" width={"150px"} onClick={()=> navigate("/payment-confirm")}/>
       </div>
     </AddressFormStyled>
   )

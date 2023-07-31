@@ -18,7 +18,8 @@
     "lodash": "^4.17.21",
     "mongodb": "^5.7.0",
     "mongoose": "^7.3.2",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "stripe": "^12.16.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2"

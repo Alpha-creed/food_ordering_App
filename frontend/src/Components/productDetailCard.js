@@ -8,7 +8,7 @@ const ProductDetailCard = ({product,onAddProduct}) => {
         <div className='not_Img'>
         <div className='price_Name'>
             <div>
-            <h2>{product&&product.name}</h2>
+            <h2>{product.name}</h2>
             </div>
             <p>{product.description}</p>
             <div>
