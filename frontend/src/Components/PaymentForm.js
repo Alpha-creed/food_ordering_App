@@ -16,11 +16,12 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 export const StripeWrapper=()=>{
     const options = {
         // passing the client secret obtained from the server
-        clientSecret: process.env.REACT_APP_CLIENT_SECRET,
-      };
+        clientSecret:process.env.REACT_APP_CLIENT_SECRET,
+
+     };
     
     return ( 
-        <Elements  stripe={stripePromise} options={options}>
+        <Elements  stripe={stripePromise} >
             <PaymentForm/>
         </Elements>
     )
@@ -48,23 +49,27 @@ const PaymentForm=()=>{
         
         try {
             const {error:backEndError,clientSecret} = await fetch('http://localhost:5000/create-payment-intent',{
-                method:"POST",
+              
+            method:'POST',
                 headers:{
                     'Content-type':'applicaton/json'
                 },
                 body:JSON.stringify({
-                    paymentMethosTypes:'card',
+                    paymentMethodType:'card',
                     orderItems:cart,
                     userId:'',
                     shippingAddress:address
                 })
             }).then(r=>r.json());
-            
-            const {error:stripeError,paymentIntent} = await stripe.confirmPayment(
+
+            const {error:stripeError,paymentIntent} = await stripe.confirmCardPayment(
                 clientSecret,{
                     payment_method:{
-                        card:elements.getElement(CardElement)
-                    }
+                        card:elements.getElement(CardElement),
+                    billing_details: {
+                        name: 'John Doe', // Replace with the name of the cardholder
+                      },
+                     },
                 }
             ) 
             if(backEndError || stripeError){
@@ -72,7 +77,7 @@ const PaymentForm=()=>{
             }else if(paymentIntent.status === "succeeded"){
                 dispatch(clearAddress());
                 dispatch(clearCart());
-                navigate('/payment-success')
+                navigate('/payment-success');
             }
 
         } catch (err) {
@@ -89,7 +94,7 @@ const PaymentForm=()=>{
                 <CardElement id="card-element"/>
             </div>
             <div className="btn">
-            {/* <Button  name={"Pay Now"} bMarg={"20px 10px"}  color={"white"} type="submit" width={"150px"} onClick={()=>loading? "Loading...":"Pay Now"}/> */}
+            {/* <Button  name={"Pay Now"} bMarg={"20px 10px"}  color={"white"} type="submit" width={"150px"} onClick={()=>navigate("/payment-success")}/> */}
             <button disabled={loading} type="submit">{loading?"Loading...":"Pay Now"}</button>
             </div>
         </PaymentFormStyled>
@@ -98,7 +103,7 @@ const PaymentForm=()=>{
 
 const PaymentFormStyled = styled.form`
 background:white;
-height:100%;
+height:600px;
 button{
     border:none;
     outline:none;

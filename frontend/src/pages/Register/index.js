@@ -1,7 +1,12 @@
+import { styled } from "styled-components";
+
 const Register = ()=>{
     return (
-        <div className="text-white">Register</div>
+        <RegisterStyled >Register</RegisterStyled>
     )
 }
 
+const RegisterStyled = styled.div`
+
+`;
 export default Register;

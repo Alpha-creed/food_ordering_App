@@ -8,7 +8,7 @@ import { setAddress } from '../stores/userInfo/addressSlice'
 import { useNavigate } from 'react-router-dom'
 
 export const AddressForm = ({onTabSwitch}) => {
-    const {register,handleSubmit}= useForm()
+    const {register,handleSubmit,formState:{errors}}= useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -23,10 +23,11 @@ export const AddressForm = ({onTabSwitch}) => {
       <div className='address'>
         <label className='streetAddress' for="streetAddress">Street Address</label>
         <input
-            {...register('address')}
+            {...register('address',{required:true})}
             type="text"
             id="street address"
             placeholder='Street Address'/>
+            {errors.address && <span className='req'>This field is required</span>}
       </div>
       <div className='allDet'>
         <div className="cityDet">
@@ -65,7 +66,7 @@ export const AddressForm = ({onTabSwitch}) => {
         </div>
       </div>
       <div className='btn'>
-        <Button  name={arrowRight} bg={"black"} type="submit" width={"150px"} onClick={()=> navigate("/payment-confirm")}/>
+        <Button  name={arrowRight} bg={"black"} type="submit" width={"150px"} />
       </div>
     </AddressFormStyled>
   )
@@ -81,6 +82,11 @@ h3{
 }
 label{
     margin:0 20px;
+}
+.req{
+    color:red;
+    font-size:15px;
+    margin:0 auto;
 }
 .allDet{
     display:flex;

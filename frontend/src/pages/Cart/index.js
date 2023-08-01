@@ -27,8 +27,9 @@ const Cart = ()=>{
     return (
         <CartStyled>
             <Tabs  className = 'tabs' list={tabs} onTabSwitch={handleTabSwitch} activeTab={currentTab}/>
-            <div className={`tabs ${currentTab !=='Summary'?"hidded":""}`}>
+            <div className={`tabs ${currentTab !=='Summary'?"hidded ":""}`}>
                 <ProductsSummary/>
+                <Button className="btn" name={arrowRight} bg={"black"} type="submit" width={"150px"} onClick={()=> handleTabSwitch("Delivery")}/>
             </div>
             <div className={`tabs ${currentTab !=='Delivery'?"hidded":""}`}>
                 <AddressForm onTabSwitch={handleTabSwitch}/>
@@ -56,7 +57,7 @@ h1{
 const CartStyled = styled.div`
 background:white;
 color:black;
-heigth:auto;
+heigth:6000px;
 width:auto;
 margin:10px 200px;border-radius: 33px 34px 4px 4px;
 -webkit-border-radius: 33px 34px 4px 4px;
@@ -64,7 +65,11 @@ margin:10px 200px;border-radius: 33px 34px 4px 4px;
 border:1px solid transparent;
 .hidded{
     display:none;
+    position:relatve;
+
 }
+
+
 `;
 
 

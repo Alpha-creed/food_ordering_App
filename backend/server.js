@@ -16,7 +16,7 @@ const calculateOrderAmt = (orderItems)=>{
     const initialValue = 0;
     const itemPrice = orderItems.reduce(
         (previousValue,currentValue)=>
-        previousValue+currentValue.price*currentValue.amount,initialValue
+        previousValue + currentValue.price * currentValue.amount,initialValue
     );
     return itemPrice*100;
 } 
@@ -82,56 +82,7 @@ app.post('/webhook', async(req, res) => {
     res.sendStatus(200);
   });
 
-app.post('/create-payment-intent',async(req,res)=>{
-    try {
-        const {orderItems,shippingAddress,userId} = req.body;
-        const totalPrice = calculateOrderAmt(orderItems);
-        const taxPrice =0;
-        const shippingPrice=0;
-        
-        const order = new Order({
-            orderItems,
-            shippingAddress,
-            paymentMethod:'stripe',
-            totalPrice,
-            taxPrice,
-            shippingPrice,
-            user:''
-        }) 
-
-        // await order.save();
-
-        //Temp 
-        // const totalPrice = 100;
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount:totalPrice,
-            currency:'usd'
-        })
-
-        //TODO:Create Order
-
-
-        res.send({
-            clientSecret:paymentIntent.client_secret
-        })
-    } catch (e) {
-        res.status(400).json({
-            error:{
-                message:e.message
-            }
-        })
-    }
-})
-
-app.listen(4242, () => console.log('Running on port 4242'));
-
-
- 
-app.get("/",(req,res)=>{
-    res.json({message:"Welcome to food Ordering"});
-})
-
-app.use('/api/',productRouter); 
+  app.use('/api/',productRouter); 
 
 
 const server = ()=>{
@@ -142,5 +93,57 @@ const server = ()=>{
         app.on('error',console.error.bind(console,'MongoDB connection error:'))
 
     }
+
+app.post('/create-payment-intent',async(req,res)=>{
+    try {
+        const {orderItems,shippingAddress,userId} = req.body;
+        
+        const totalPrice = calculateOrderAmt(orderItems);
+        const taxPrice =0;
+        const shippingPrice=0;
+         
+        const order = new Order({
+            orderItems,
+            shippingAddress,
+            paymentMethod:'stripe',
+            totalPrice,
+            taxPrice,
+            shippingPrice,
+            user:'',
+        }); 
+
+        await order.save();
+
+        //Temp 
+        // const totalPrice = 100;
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount:totalPrice,
+            currency:'usd',
+        });
+
+        //TODO:Create Order
+
+
+        res.send({
+            clientSecret:paymentIntent.client_secret
+        });
+    } catch (e) {
+        res.status(400).json({
+            error:{
+                message:e.message
+            }
+        })
+    }
+})
+
+app.listen(4242, ()=>console.log('Running on port 4242'));
+
+
+ 
+app.get("/",(req,res)=>{
+    res.json({message:"Welcome to food Ordering"});
+})
+
+
 server()  
      

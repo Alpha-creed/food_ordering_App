@@ -9,6 +9,7 @@ import Menu from "../pages/Menu";
 import { cartProduct } from "../stores/cart/cartSlice";
 import { useSelector } from "react-redux";
 import { StripeWrapper } from "../Components/PaymentForm";
+import Footer from "../Components/Footer";
 
 
 const Navigation = ()=>{
@@ -23,8 +24,9 @@ const Navigation = ()=>{
                 <Route path="/menu" element={<Menu />}/>
                 <Route path="/cart" element={<Cart />}/>
                 <Route path="/payment-success" element={<PaymentSuccess />}/>
-                <Route path="/payment-confirm" element={<StripeWrapper/>}/>
+                {/* <Route path="/payment-confirm" element={<StripeWrapper/>}/> */}
             </Routes>
+            <Footer/>
         </BrowserRouter>
     )
 }
