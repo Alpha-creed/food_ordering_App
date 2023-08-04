@@ -6,8 +6,8 @@ const { db } = require("./db");
 const app = express();
 const productRouter = require('./routes/productRoutes');
 const Order = require('./models/orderModel');
-
-
+const userRouter = require('./routes/userRoutes');
+ 
 require('dotenv').config()
 const PORT = process.env.PORT||5000 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -83,11 +83,11 @@ app.post('/webhook', async(req, res) => {
   });
 
   app.use('/api/',productRouter); 
-
+  app.use('/api/',userRouter);
 
 const server = ()=>{
         db()
-        app.listen(PORT,()=>{
+        app.listen(PORT,()=>{ 
             console.log('listening to port:',PORT)
         })
         app.on('error',console.error.bind(console,'MongoDB connection error:'))

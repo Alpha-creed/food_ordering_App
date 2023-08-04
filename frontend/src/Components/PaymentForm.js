@@ -21,7 +21,7 @@ export const StripeWrapper=()=>{
      };
     
     return ( 
-        <Elements  stripe={stripePromise} >
+        <Elements  stripe={stripePromise} options={options}>
             <PaymentForm/>
         </Elements>
     )
@@ -66,9 +66,6 @@ const PaymentForm=()=>{
                 clientSecret,{
                     payment_method:{
                         card:elements.getElement(CardElement),
-                    billing_details: {
-                        name: 'John Doe', // Replace with the name of the cardholder
-                      },
                      },
                 }
             ) 
@@ -94,8 +91,7 @@ const PaymentForm=()=>{
                 <CardElement id="card-element"/>
             </div>
             <div className="btn">
-            {/* <Button  name={"Pay Now"} bMarg={"20px 10px"}  color={"white"} type="submit" width={"150px"} onClick={()=>navigate("/payment-success")}/> */}
-            <button disabled={loading} type="submit">{loading?"Loading...":"Pay Now"}</button>
+            <Button  name={loading?"Loading...":"Pay Now"} bMarg={"20px 10px"}  color={"white"} type="submit" width={"150px"} onClick={()=>navigate("/payment-success")}/>
             </div>
         </PaymentFormStyled>
     )

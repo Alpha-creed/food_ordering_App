@@ -1,9 +1,37 @@
 import foody from "../assest/images/thumb-238653.jpg"
 import { cart } from "../assest/icons"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { styled } from "styled-components"
+import { useEffect, useState } from "react"
+import Button from "./elements/Button"
 
 export const Header = ({cartCount}) =>{
+    const navigate = useNavigate();
+    const [isLoggedIn,setIsLoggedIn] = useState(false);
+
+    const handleLogout = ()=>{
+        sessionStorage.removeItem("Auth token");
+        sessionStorage.removeItem("User Id");
+        navigate("/");
+    }
+    
+    useEffect(()=>{
+        const checkAuthToken = () =>{
+            const token = sessionStorage.getItem('Auth token');
+            if(token){
+                setIsLoggedIn(true);
+            }else{
+                setIsLoggedIn(false);
+            }
+        }
+
+        window.addEventListener("storage",checkAuthToken);
+
+        return ()=>{
+            window.removeEventListener("storage",checkAuthToken);
+        }
+    },[])
+
     return(
         <HeaderStyled id="Header" >
             <div className="headerWrapper">
@@ -18,12 +46,19 @@ export const Header = ({cartCount}) =>{
                 </div>
                 <div className="loginWrapper">
                     <Link to="/cart" className="cart">
-                        
                         {cart}
                         {cartCount>0?<div className="cartCount">{cartCount}</div>:null}
                     </Link>
-                    <Link to="/login" className="logIn">log In</Link>
-                    <Link to ="/register" className="signUp">Sign Up</Link>
+                    {
+                        isLoggedIn?
+                        <Button name={"Log Out"} onClick={handleLogout} color={"white"} bg={"orange"}/>:
+                        (
+                        <>
+                            <Link to="/login" className="logIn">log In</Link>
+                            <Link to ="/register" className="signUp">Sign Up</Link>
+                        </>
+                        )    
+                }
                 </div>
             </div>
         </HeaderStyled>

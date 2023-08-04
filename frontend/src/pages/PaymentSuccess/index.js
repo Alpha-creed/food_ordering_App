@@ -14,6 +14,7 @@ color:white;
 align-items:center;
 display:flex;
 justify-content:center;
+margin:100px 0;
 `;
 
 export default PaymentSuccess;
